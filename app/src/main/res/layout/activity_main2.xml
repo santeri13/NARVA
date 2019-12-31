@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6666ff"
+    android:orientation="vertical"
+    tools:context=".Main">
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="306dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="68dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="257dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="36dp"
+        android:background="#ff3333"
+        android:drawableStart="@drawable/icntour"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/tours"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="257dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="12dp"
+        android:background="#ffcc00"
+        android:drawableStart="@drawable/icndiscover"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/discover"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="257dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="12dp"
+        android:background="#33cc33"
+        android:drawableStart="@drawable/icnfindguide"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/find_a_guide"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintVertical_bias="0.008" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

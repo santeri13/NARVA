@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">N[AR]VA</string>
+    <string name="button">Button</string>
+    <string name="but">but</string>
+    <string name="find_a_guide">Find a guide</string>
+    <string name="discover">Discover</string>
+    <string name="aleks">Aleks</string>
+    <string name="home">Home</string>
+    <string name="tour">Tour</string>
+    <string name="profile">Profile</string>
+    <string name="let_s_go">Let\'s go</string>
+    <string name="tours">Tours</string>
+    <string name="woohoo">Woohoo!</string>
+    <string name="let_s_make_history">Let\'s make history</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="log_in">LOG IN</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="start">START</string>
+    <string name="textview">TextView</string>
+    <string name="title_here">Title Here</string>
+    <string name="google_maps_API__key" templateMergeStrategy="preserve" translatable="false">AIzaSyAu1bQLyJ6YeeT7eEzqtdtkOfMrEkUr-cU</string>
+    <string name="Location">Location</string>
+    <string name="add_new_location">Add new location</string>
+</resources>
