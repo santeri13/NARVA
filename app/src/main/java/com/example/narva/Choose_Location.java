@@ -49,8 +49,6 @@ public class Choose_Location extends AppCompatActivity {
             init();
         }
 
-
-
     }
     private void init(){
         buttonNext = (Button) findViewById(R.id.button7);

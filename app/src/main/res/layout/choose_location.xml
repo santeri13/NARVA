@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6666ff"
+    android:background="#9504cf"
     android:orientation="vertical"
     tools:context=".Choose_Location">
 
@@ -50,7 +50,7 @@
         android:gravity="left|center"
         android:paddingLeft="10dp"
         android:textSize="20sp"
-        android:textColorHint="#b3b3b3"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6666ff"
+    android:background="#9504cf"
     android:orientation="vertical"
     tools:context=".Main">
 
@@ -21,17 +21,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/style"/>
 
     <Button
         android:id="@+id/button3"
         android:layout_width="257dp"
         android:layout_height="65dp"
         android:layout_marginTop="36dp"
-        android:background="#ff3333"
         android:drawableStart="@drawable/icntour"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/tours"
+        android:background="#ff3333"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,6 @@
         android:layout_width="257dp"
         android:layout_height="65dp"
         android:layout_marginTop="12dp"
-        android:background="#ffcc00"
         android:drawableStart="@drawable/icndiscover"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/discover"
@@ -52,7 +52,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        android:background="#ffcc00"/>
 
     <Button
         android:id="@+id/button6"
