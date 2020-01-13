@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.DefaultCompany.Android.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,7 +47,7 @@ import java.util.Locale;
 public class Main extends AppCompatActivity implements LocationListener {
 
     private TextView textView;
-    private Button button;
+    private Button button1, button2;
     private static GoogleApiClient mGoogleApiClient;
     private static final String TAG = "Main";
     private static final int ERROR_DIALOG_REQUEST = 9001;
@@ -81,6 +82,10 @@ public class Main extends AppCompatActivity implements LocationListener {
 
     public void openTours() {
         Intent intent = new Intent(this, Choose_Location.class);
+        startActivity(intent);
+    }
+    public void openUnity(){
+        Intent intent = new Intent(this, UnityPlayerActivity.class);
         startActivity(intent);
     }
 
@@ -193,13 +198,21 @@ public class Main extends AppCompatActivity implements LocationListener {
         return false;
     }
     private void init(){
-        button = findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener() {
+        button1 = findViewById(R.id.button3);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openTours();
             }
         });
+        button2 = findViewById(R.id.button5);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUnity();
+            }
+        });
+
     }
     private void displayLocationSettingsRequest(Context context) {
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)

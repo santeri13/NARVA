@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':Unity'
 rootProject.name='N[AR]VA'
