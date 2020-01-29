@@ -316,7 +316,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
         markerOptions1 = new MarkerOptions().position( new LatLng (location.getLatitude(), location.getLongitude())).title("Current Position");
         markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
     }
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;

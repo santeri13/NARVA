@@ -12,6 +12,12 @@
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true"/>
 
     <application
         android:allowBackup="true"
@@ -28,17 +34,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_API__key" />
 
-        <activity android:name=".Main">
+        <activity android:name=".Main"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Gps"/>
-        <activity android:name=".Slider" />
-        <activity android:name=".Tours" />
-        <activity android:name=".Choose_Location" />
+        <activity android:name=".Gps"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Slider"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Choose_Location" android:screenOrientation="portrait" />
 
         <!--<activity android:name=".Main" />-->
     </application>
