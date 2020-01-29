@@ -26,7 +26,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.DefaultCompany.Android.UnityPlayerActivity;
+//import com.DefaultCompany.Android.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -84,10 +84,10 @@ public class Main extends AppCompatActivity implements LocationListener {
         Intent intent = new Intent(this, Choose_Location.class);
         startActivity(intent);
     }
-    public void openUnity(){
-        Intent intent = new Intent(this, UnityPlayerActivity.class);
-        startActivity(intent);
-    }
+    //public void openUnity(){
+        //Intent intent = new Intent(this, UnityPlayerActivity.class);
+        //startActivity(intent);
+    //}
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -205,13 +205,13 @@ public class Main extends AppCompatActivity implements LocationListener {
                 openTours();
             }
         });
-        button2 = findViewById(R.id.button5);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUnity();
-            }
-        });
+        //button2 = findViewById(R.id.button5);
+        //button2.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            //public void onClick(View v) {
+                //openUnity();
+            //}
+        //});
 
     }
     private void displayLocationSettingsRequest(Context context) {
