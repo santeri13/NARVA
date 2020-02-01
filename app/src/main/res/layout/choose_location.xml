@@ -32,6 +32,7 @@
         android:hint="@string/Location"
         android:gravity="left|center"
         android:paddingLeft="10dp"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:textColorHint="#FFFFFF"

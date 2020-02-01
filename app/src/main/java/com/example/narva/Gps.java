@@ -2,17 +2,12 @@ package com.example.narva;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -42,7 +37,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import java.util.Objects;
 
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -50,14 +44,12 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
     private static GoogleApiClient mGoogleApiClient;
     private static final int ACCESS_FINE_LOCATION_INTENT_ID = 3;
-    private static final String BROADCAST_ACTION = "android.location.PROVIDERS_CHANGED";
     private GoogleMap mMap;
     LocationRequest mLocationRequest;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LatLng latLng;
     MarkerOptions markerOptions1, markerOptions2, markerOptions3;
-    private String TAG = "so47492459";
     private String locastion;
 
 
@@ -123,7 +115,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
             @Override
             public void onResult(LocationSettingsResult result) {
                 final Status status = result.getStatus();
-                final LocationSettingsStates state = result.getLocationSettingsStates();
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         // All location settings are satisfied. The client can initialize location
@@ -170,49 +161,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(gpsLocationReceiver, new IntentFilter(BROADCAST_ACTION));//Register broadcast receiver to check the status of GPS
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //Unregister receiver on destroy
-        if (gpsLocationReceiver != null)
-            unregisterReceiver(gpsLocationReceiver);
-    }
-
-    //Run on UI
-    private Runnable sendUpdatesToUI = new Runnable() {
-        public void run() {
-            showSettingDialog();
-        }
-    };
-
     /* Broadcast receiver to check status of GPS */
-    private BroadcastReceiver gpsLocationReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            //If Action is Location
-            if (Objects.requireNonNull(intent.getAction()).matches(BROADCAST_ACTION)) {
-                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                //Check if GPS is turned ON or OFF
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    Log.e("About GPS", "GPS is Enabled in your device");
-                } else {
-                    //If GPS turned OFF show Location Dialog
-                    new Handler().postDelayed(sendUpdatesToUI, 10);
-                    // showSettingDialog();
-                    Log.e("About GPS", "GPS is Disabled in your device");
-                }
-
-            }
-        }
-    };
 
 
     /* On Request permission method to check the permisison is granted or not for Marshmallow+ Devices  */
@@ -250,6 +199,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         }
     }
 
+    //Main method for GoogleMap to manipulate with information which you see on map
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -274,6 +224,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         }
     }
 
+    //Put information on GoogleMap which we use in omMapReady method.
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -306,6 +257,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
 
     }
 
+    //Each 2-3 seconds method activate to change information on map.
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
@@ -355,6 +307,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
             }
         }
     }
+    //If you go to another app on phone then it stop work but not close.
     @Override
     public void onPause() {
         super.onPause();
