@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +28,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -49,7 +50,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LatLng latLng;
-    MarkerOptions markerOptions1, markerOptions2, markerOptions3;
+    MarkerOptions markerOptions1;
     private String locastion;
 
 
@@ -205,13 +206,56 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if(locastion.equals("Narva")){
-            LatLng raekoja = new LatLng(59.379522, 28.198665);
-            markerOptions2 = new MarkerOptions().position( new LatLng (59.379522, 28.198665)).title("Narva Raekoja");
-            LatLng castle = new LatLng(59.375490, 28.201471);
-            markerOptions3 = new MarkerOptions().position(new LatLng(59.375490, 28.201471)).title("Narva Castle");
-            mMap.addMarker(markerOptions3);
-            mMap.addMarker(markerOptions2);
+            LatLng lion = new LatLng(59.373062, 28.200594);
+            mMap.addMarker(new MarkerOptions().position(lion).title("Swedish lion statue in Narva"));
+            LatLng prom = new LatLng(59.377580, 28.203154);
+            mMap.addMarker(new MarkerOptions().position(prom).title("Narva Promenaad"));
+            LatLng plats = new LatLng(59.379110, 28.198908);
+            mMap.addMarker(new MarkerOptions().position(plats).title("Raekoja plats"));
+            mMap.addPolyline(new PolylineOptions().add(
+                    lion,
+                    new LatLng(59.373212, 28.201108),
+
+                    new LatLng(59.374442, 28.201466),
+
+                    new LatLng(59.375224, 28.202039),
+
+                    new LatLng(59.377358, 28.202929),
+
+                    prom)
+
+                    .width(10)
+
+                    .color(Color.RED)
+            );
+            mMap.addPolyline(new PolylineOptions().add(
+
+                    prom,
+
+                    new LatLng(59.377674, 28.202427),
+
+                    new LatLng(59.378019, 28.202711),
+
+                    new LatLng(59.378291, 28.201186),
+
+                    new LatLng(59.378353, 28.199758),
+
+                    new LatLng(59.378395, 28.198703),
+
+                    new LatLng(59.378708, 28.198875),
+
+                    plats)
+
+                    .width(10)
+
+                    .color(Color.BLUE)
+
+
+
+            );
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lion, 15),5000,null);
         }
+
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -222,6 +266,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
             //Request Location Permission
             checkLocationPermission();
         }
+
     }
 
     //Put information on GoogleMap which we use in omMapReady method.
@@ -268,7 +313,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
         markerOptions1 = new MarkerOptions().position( new LatLng (location.getLatitude(), location.getLongitude())).title("Current Position");
         markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
     }
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;

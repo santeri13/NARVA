@@ -141,7 +141,7 @@ public class Main extends AppCompatActivity implements LocationListener {
                 }
             }
         } catch (IOException e){
-            textView.setText("Locatsion not found");
+            textView.setText("Location not found");
         }
         return cityName;
     }
@@ -161,7 +161,7 @@ public class Main extends AppCompatActivity implements LocationListener {
                 }
             }
         } catch (IOException e){
-            textView.setText("Locatsion not found");
+            textView.setText("Location not found");
         }
         return countryName;
     }
@@ -193,6 +193,5 @@ public class Main extends AppCompatActivity implements LocationListener {
                 openTours();
             }
         });
-
     }
 }

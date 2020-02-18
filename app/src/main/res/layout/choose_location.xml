@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9504cf"
+    android:background="#3A68FB"
     android:orientation="vertical"
     tools:context=".Choose_Location">
 
@@ -15,9 +15,9 @@
         android:layout_marginTop="56dp"
         android:paddingLeft="6dp"
         android:paddingTop="22dp"
-        android:text="Choose location:"
+        android:text="@string/write_your_tour_code"
         android:textColor="@color/colorWhite"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"

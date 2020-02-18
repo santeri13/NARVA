@@ -22,9 +22,9 @@
     <application
         android:allowBackup="true"
         tools:replace="android:icon,android:theme"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -34,21 +34,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_API__key" />
 
-        <activity android:name=".Main"
+        <activity android:name=".Slider"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Main"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".Gps"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Slider"
-            android:screenOrientation="portrait"/>
         <activity android:name=".Choose_Location" android:screenOrientation="portrait" />
-
-        <!--<activity android:name=".Main" />-->
     </application>
 
 </manifest>

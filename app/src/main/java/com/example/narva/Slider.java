@@ -5,7 +5,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -84,7 +83,11 @@ public class Slider extends AppCompatActivity {
     public void openMain(){
         Intent intent = new Intent(this, Main.class);
         startActivity(intent);
+        finish();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
