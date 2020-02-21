@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3A68FB"
+    android:background="#405fe5"
     android:orientation="vertical"
     tools:context=".Main">
 
@@ -54,10 +54,11 @@
         android:layout_height="65dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="#ff3333"
+        android:background="#e84c3d"
         android:drawableStart="@drawable/drawabletour"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/tours"
+        android:gravity="left|center_vertical"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,11 +75,12 @@
         android:text="@string/discover"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:gravity="left|center_vertical"
         android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3"
-        android:background="#ffcc00"/>
+        android:background="#f39c11"/>
 
     <Button
         android:id="@+id/button6"
@@ -86,12 +88,13 @@
         android:layout_height="65dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
-        android:background="#33cc33"
+        android:background="#23b574"
         android:drawableStart="@drawable/drawableconfigure"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/find_a_guide"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:gravity="left|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

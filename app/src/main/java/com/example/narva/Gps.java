@@ -11,13 +11,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -37,11 +35,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener{
+        LocationListener,TaskLoadedCallback{
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
     private static GoogleApiClient mGoogleApiClient;
     private static final int ACCESS_FINE_LOCATION_INTENT_ID = 3;
@@ -49,9 +48,10 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     LocationRequest mLocationRequest;
     Location mLastLocation;
     Marker mCurrLocationMarker;
-    LatLng latLng;
+    LatLng latLng,lion;
     MarkerOptions markerOptions1;
     private String locastion;
+    private Polyline currentPolyline;
 
 
     @Override
@@ -212,6 +212,8 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
             mMap.addMarker(new MarkerOptions().position(prom).title("Narva Promenaad"));
             LatLng plats = new LatLng(59.379110, 28.198908);
             mMap.addMarker(new MarkerOptions().position(plats).title("Raekoja plats"));
+            new FetchURL(Gps.this).execute(getUrl(lion,prom , "driving"), "driving");
+            new FetchURL(Gps.this).execute(getUrl(prom,plats , "driving"), "driving");
             mMap.addPolyline(new PolylineOptions().add(
                     lion,
                     new LatLng(59.373212, 28.201108),
@@ -315,6 +317,21 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
     }
+    private String getUrl(LatLng origin, LatLng dest, String directionMode) {
+        // Origin of route
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+        // Destination of route
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+        // Mode
+        String mode = "mode=" + directionMode;
+        // Building the parameters to the web service
+        String parameters = str_origin + "&" + str_dest + "&" + mode;
+        // Output format
+        String output = "json";
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_API__key);
+        return url;
+    }
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -360,5 +377,12 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
+    }
+
+    @Override
+    public void onTaskDone(Object... values) {
+        if (currentPolyline != null)
+            currentPolyline.remove();
+        currentPolyline = mMap.addPolyline((PolylineOptions) values[0]);
     }
 }

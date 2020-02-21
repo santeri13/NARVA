@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffcc00">
+    android:background="#f39c11">
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/imageView2"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -19,6 +20,7 @@
         app:srcCompat="@drawable/introscrn2" />
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/textView"
         android:layout_width="230dp"
         android:layout_height="70dp"
@@ -36,6 +38,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/textView2"
         android:layout_width="248dp"
         android:layout_height="69dp"
@@ -49,4 +52,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout >
+</LinearLayout >

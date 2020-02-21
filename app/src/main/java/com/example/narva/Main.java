@@ -16,12 +16,13 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.DefaultCompany.Android.UnityPlayerActivity;
+import com.DefaultCompany.Android.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -32,7 +33,7 @@ import java.util.Locale;
 public class Main extends AppCompatActivity implements LocationListener {
 
     private TextView textView;
-    private Button button1;
+    private Button button1,button2;
     private static final String TAG = "Main";
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
@@ -68,10 +69,10 @@ public class Main extends AppCompatActivity implements LocationListener {
         startActivity(intent);
     }
     //if you like to test  unity then uncommit 71-74 rows and 24 row(remove this //), then in Gradle Script => build.gradle (Module:app) uncommit 43-39 rows and uncommit build.gradle(Project: arcoreclient) 19-21
-    //public void openUnity(){
-        //Intent intent = new Intent(this, UnityPlayerActivity.class);
-        //startActivity(intent);
-    //}
+    public void openUnity(){
+        Intent intent = new Intent(this, UnityPlayerActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -184,14 +185,46 @@ public class Main extends AppCompatActivity implements LocationListener {
         }
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     //On button click move to openTours method
     private void init(){
         button1 = findViewById(R.id.button3);
+        button2=findViewById(R.id.button5);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openTours();
             }
         });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUnity();
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
