@@ -18,11 +18,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.DefaultCompany.Android.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -41,6 +41,8 @@ public class Main extends AppCompatActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        Window g = getWindow();
+        g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
         textView = (TextView) findViewById(R.id.textView4);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -53,7 +55,7 @@ public class Main extends AppCompatActivity implements LocationListener {
                 String country = countrylocation(location.getLatitude(), location.getLongitude());
                 textView.setText(city + " , " + country);
             } catch (Exception e) {
-                textView.setText("Not found");
+                textView.setText("");
             }
 
         }
@@ -66,11 +68,6 @@ public class Main extends AppCompatActivity implements LocationListener {
     //move to Choose_Location class
     public void openTours() {
         Intent intent = new Intent(this, Choose_Location.class);
-        startActivity(intent);
-    }
-    //if you like to test  unity then uncommit 71-74 rows and 24 row(remove this //), then in Gradle Script => build.gradle (Module:app) uncommit 43-39 rows and uncommit build.gradle(Project: arcoreclient) 19-21
-    public void openUnity(){
-        Intent intent = new Intent(this, UnityPlayerActivity.class);
         startActivity(intent);
     }
 
@@ -199,12 +196,6 @@ public class Main extends AppCompatActivity implements LocationListener {
             @Override
             public void onClick(View v) {
                 openTours();
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUnity();
             }
         });
     }

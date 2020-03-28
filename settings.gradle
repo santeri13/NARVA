@@ -1,3 +1,2 @@
-include ':app', ':Unity', ':arcoreclient'
-include ':aar', ':arcore_client'
+include ':app'
 rootProject.name='N[AR]VA'

@@ -6,8 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">#0E309D</item>
-        <item name="android:colorPrimaryDark">#0E309D</item>
+        <item name="android:navigationBarColor">#1440CB</item>
     </style>
 
 </resources>

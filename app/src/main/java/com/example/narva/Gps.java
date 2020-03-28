@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,7 +50,8 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     LocationRequest mLocationRequest;
     Location mLastLocation;
     Marker mCurrLocationMarker;
-    LatLng latLng,lion;
+    LatLng latLng,lion,prom,plats;
+    MarkerOptions lionmarker,prommarker,platsmarker;
     MarkerOptions markerOptions1;
     private String locastion;
     private Polyline currentPolyline;
@@ -58,7 +61,12 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
+        Window g = getWindow();
+        g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
         locastion = Choose_Location.getLocation();
+        lionmarker = new MarkerOptions().position(new LatLng(59.373062, 28.200594)).title("Swedish lion statue in Narva");
+        prommarker = new MarkerOptions().position(new LatLng(59.377580, 28.203154)).title("Narva Promenaad");
+        platsmarker = new MarkerOptions().position(new LatLng(59.379110, 28.198908)).title("Raekoja plats");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -206,14 +214,12 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if(locastion.equals("Narva")){
-            LatLng lion = new LatLng(59.373062, 28.200594);
-            mMap.addMarker(new MarkerOptions().position(lion).title("Swedish lion statue in Narva"));
-            LatLng prom = new LatLng(59.377580, 28.203154);
-            mMap.addMarker(new MarkerOptions().position(prom).title("Narva Promenaad"));
-            LatLng plats = new LatLng(59.379110, 28.198908);
-            mMap.addMarker(new MarkerOptions().position(plats).title("Raekoja plats"));
-            new FetchURL(Gps.this).execute(getUrl(lion,prom , "driving"), "driving");
-            new FetchURL(Gps.this).execute(getUrl(prom,plats , "driving"), "driving");
+            lion = new LatLng(59.373062, 28.200594);
+            prom = new LatLng(59.377580, 28.203154);
+            plats = new LatLng(59.379110, 28.198908);
+            mMap.addMarker(lionmarker);
+            mMap.addMarker(prommarker);
+            mMap.addMarker(platsmarker);
             mMap.addPolyline(new PolylineOptions().add(
                     lion,
                     new LatLng(59.373212, 28.201108),
@@ -255,7 +261,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
 
 
             );
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lion, 15),5000,null);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.373062, 28.200594), 15),5000,null);
         }
 
         if (ContextCompat.checkSelfPermission(this,
@@ -315,6 +321,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
         markerOptions1 = new MarkerOptions().position( new LatLng (location.getLatitude(), location.getLongitude())).title("Current Position");
         markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        new FetchURL(Gps.this).execute(getUrl(markerOptions1.getPosition(), lionmarker.getPosition(), "walking"), "walking");
 
     }
     private String getUrl(LatLng origin, LatLng dest, String directionMode) {
