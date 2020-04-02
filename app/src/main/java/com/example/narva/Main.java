@@ -1,8 +1,6 @@
 package com.example.narva;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
@@ -62,8 +60,13 @@ public class Main extends AppCompatActivity implements LocationListener {
         if (isServiceOk()) {
             init();
         }
+
     }
 
+    //public void Unity(){
+        //Intent intent = new Intent(this, UnityPlayerActivity.class);
+        //startActivity(intent);
+    //}
 
     //move to Choose_Location class
     public void openTours() {
@@ -198,7 +201,14 @@ public class Main extends AppCompatActivity implements LocationListener {
                 openTours();
             }
         });
+        //button2.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            //public void onClick(View v) {
+                //Unity();
+            //}
+        //});
     }
+
 
     @Override
     protected void onPause() {

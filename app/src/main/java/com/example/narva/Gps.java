@@ -1,5 +1,4 @@
 package com.example.narva;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,10 +51,12 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LatLng latLng,lion,prom,plats;
-    MarkerOptions lionmarker,prommarker,platsmarker;
-    MarkerOptions markerOptions1;
+    MarkerOptions lionmarker,prommarker,platsmarker, markerOptions1;
     private String locastion;
     private Polyline currentPolyline;
+    double latitude, longtitude;
+    double end_latitude,end_longtitude;
+    Button unityButton;
 
 
     @Override
@@ -72,8 +74,21 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         initGoogleAPIClient();//Init Google API Client
         checkPermissions();//Check Permission
+        //unityButton = findViewById(R.id.unitybutton);
+        //unityButton.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            //public void onClick(View v) {
+                //Unity();
+            //}
+        //});
+
 
     }
+
+    //public void Unity(){
+        //Intent intent = new Intent(this, UnityPlayerActivity.class);
+        //startActivity(intent);
+    //}
     /* Initiate Google API Client  */
     private void initGoogleAPIClient() {
         //Without Google API Client Auto Location Dialog will not work
@@ -215,6 +230,8 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if(locastion.equals("Narva")){
             lion = new LatLng(59.373062, 28.200594);
+            end_latitude = lion.latitude;
+            end_longtitude = lion.longitude;
             prom = new LatLng(59.377580, 28.203154);
             plats = new LatLng(59.379110, 28.198908);
             mMap.addMarker(lionmarker);
@@ -319,10 +336,14 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         }
         //Place current location marker
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        latitude = location.getLatitude();
+        longtitude = location.getLongitude();
         markerOptions1 = new MarkerOptions().position( new LatLng (location.getLatitude(), location.getLongitude())).title("Current Position");
         markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         new FetchURL(Gps.this).execute(getUrl(markerOptions1.getPosition(), lionmarker.getPosition(), "walking"), "walking");
-
+        float result[] = new float[10];
+        Location.distanceBetween(latitude,longtitude,end_latitude,end_longtitude,result);
+        lionmarker.snippet("Distance ="+result[0]);
     }
     private String getUrl(LatLng origin, LatLng dest, String directionMode) {
         // Origin of route
@@ -392,4 +413,5 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
             currentPolyline.remove();
         currentPolyline = mMap.addPolyline((PolylineOptions) values[0]);
     }
+
 }
