@@ -39,11 +39,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"
-            tools:replace="android:value"/>
+            tools:replace="android:value" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_API__key"
-            tools:replace="android:value"/>
+            tools:replace="android:value" />
 
         <activity
             android:name=".Slider"
@@ -63,7 +63,9 @@
         <activity
             android:name=".Choose_Location"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".Register"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +34,7 @@ public class Main extends AppCompatActivity implements LocationListener {
     private Button button1,button2;
     private static final String TAG = "Main";
     private static final int ERROR_DIALOG_REQUEST = 9001;
+    String prevStarted = "prevStarted";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,6 @@ public class Main extends AppCompatActivity implements LocationListener {
         }
 
     }
-
-    //public void Unity(){
-        //Intent intent = new Intent(this, UnityPlayerActivity.class);
-        //startActivity(intent);
-    //}
 
     //move to Choose_Location class
     public void openTours() {
@@ -191,6 +187,7 @@ public class Main extends AppCompatActivity implements LocationListener {
         super.onBackPressed();
     }
 
+
     //On button click move to openTours method
     private void init(){
         button1 = findViewById(R.id.button3);
@@ -201,12 +198,6 @@ public class Main extends AppCompatActivity implements LocationListener {
                 openTours();
             }
         });
-        //button2.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View v) {
-                //Unity();
-            //}
-        //});
     }
 
 

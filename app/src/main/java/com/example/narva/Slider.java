@@ -3,9 +3,12 @@ package com.example.narva;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.view.View;
 import android.view.Window;
@@ -23,6 +26,9 @@ public class Slider extends AppCompatActivity {
     private LinearLayout mDotsLayout;
     private TextView[]mDots;
     private Button button;
+    SharedPreferences sharedPreferences;
+    Boolean firstTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +40,8 @@ public class Slider extends AppCompatActivity {
         mDotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
         slider = new SliderAdapter (layouts,this);
         mPager.setAdapter(slider);
-
         addDotsIndicator(0);
         mPager.addOnPageChangeListener(viewListener);
-
         button = findViewById(R.id.button7);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,9 +49,31 @@ public class Slider extends AppCompatActivity {
                 openMain();
             }
         });
+        sharedPreferences = getSharedPreferences("MyPrefs",MODE_PRIVATE);
 
+        firstTime = sharedPreferences.getBoolean("firstTime",true);
 
+        if (firstTime){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
 
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    firstTime = false;
+                    editor.putBoolean("firstTime",firstTime);
+                    editor.apply();
+
+                    Intent i  = new Intent(Slider.this,Main.class);
+                    startActivity(i);
+                    finish();
+                }
+            }, 5000);
+        }
+        else {
+            Intent i  = new Intent(Slider.this,Main.class);
+            startActivity(i);
+            finish();
+        }
     }
     public void addDotsIndicator(int  posistion){
         mDots = new TextView[3];

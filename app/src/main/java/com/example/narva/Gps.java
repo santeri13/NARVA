@@ -9,15 +9,19 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.ARN.Narva.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -40,6 +44,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.lang.reflect.Array;
+
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,TaskLoadedCallback{
@@ -57,6 +63,8 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     double latitude, longtitude;
     double end_latitude,end_longtitude;
     Button unityButton;
+    TextView textarea;
+    float more = 700;
 
 
     @Override
@@ -66,7 +74,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         Window g = getWindow();
         g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
         locastion = Choose_Location.getLocation();
-        lionmarker = new MarkerOptions().position(new LatLng(59.373062, 28.200594)).title("Swedish lion statue in Narva");
+        lionmarker = new MarkerOptions().position(new LatLng(59.373015, 28.200559)).title("Swedish lion statue in Narva");
         prommarker = new MarkerOptions().position(new LatLng(59.377580, 28.203154)).title("Narva Promenaad");
         platsmarker = new MarkerOptions().position(new LatLng(59.379110, 28.198908)).title("Raekoja plats");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -74,21 +82,19 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         initGoogleAPIClient();//Init Google API Client
         checkPermissions();//Check Permission
-        //unityButton = findViewById(R.id.unitybutton);
-        //unityButton.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View v) {
-                //Unity();
-            //}
-        //});
-
+        unityButton = findViewById(R.id.unitybutton);
+        unityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Unity();
+            }
+        });
 
     }
-
-    //public void Unity(){
-        //Intent intent = new Intent(this, UnityPlayerActivity.class);
-        //startActivity(intent);
-    //}
+    public void Unity() {
+        Intent intent = new Intent(this, UnityPlayerActivity.class);
+        startActivity(intent);
+    }
     /* Initiate Google API Client  */
     private void initGoogleAPIClient() {
         //Without Google API Client Auto Location Dialog will not work
@@ -229,16 +235,36 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if(locastion.equals("Narva")){
-            lion = new LatLng(59.373062, 28.200594);
-            end_latitude = lion.latitude;
-            end_longtitude = lion.longitude;
+            lion = new LatLng(59.372404, 28.200153);
             prom = new LatLng(59.377580, 28.203154);
+            end_latitude = prom.latitude;
+            end_longtitude = prom.longitude;
             plats = new LatLng(59.379110, 28.198908);
             mMap.addMarker(lionmarker);
             mMap.addMarker(prommarker);
             mMap.addMarker(platsmarker);
             mMap.addPolyline(new PolylineOptions().add(
                     lion,
+                    new LatLng(59.373015, 28.200559),
+
+                    new LatLng(59.372404, 28.200153),
+
+                    new LatLng(59.372351, 28.200274),
+
+                    new LatLng(59.372324, 28.200365),
+
+                    new LatLng(59.372296, 28.200473),
+
+                    new LatLng(59.372293, 28.200580),
+
+                    new LatLng(59.372283, 28.200752),
+
+                    new LatLng(59.372422, 28.200693),
+
+                    new LatLng(59.372624, 28.200773),
+
+                    new LatLng(59.372884, 28.201009),
+
                     new LatLng(59.373212, 28.201108),
 
                     new LatLng(59.374442, 28.201466),
@@ -251,13 +277,26 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
 
                     .width(10)
 
-                    .color(Color.RED)
+                    .color(Color.MAGENTA)
             );
             mMap.addPolyline(new PolylineOptions().add(
 
                     prom,
+                    new LatLng(59.377358, 28.202929),
 
-                    new LatLng(59.377674, 28.202427),
+                    new LatLng(59.376870, 28.202709),
+
+                    new LatLng(59.376916, 28.202183),
+
+                    new LatLng(59.377263, 28.202210),
+
+                    new LatLng(59.377345, 28.202505),
+
+                    new LatLng(59.377683, 28.202811),
+
+                    new LatLng(59.377802, 28.202639),
+
+                    new LatLng(59.378003, 28.202776),
 
                     new LatLng(59.378019, 28.202711),
 
@@ -341,9 +380,20 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         markerOptions1 = new MarkerOptions().position( new LatLng (location.getLatitude(), location.getLongitude())).title("Current Position");
         markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         new FetchURL(Gps.this).execute(getUrl(markerOptions1.getPosition(), lionmarker.getPosition(), "walking"), "walking");
-        float result[] = new float[10];
+        float result[] = new float[1];
         Location.distanceBetween(latitude,longtitude,end_latitude,end_longtitude,result);
-        lionmarker.snippet("Distance ="+result[0]);
+        for(int i = 0, n = result.length; i <n ;i++){
+            if(result[i]<=300){
+                Button theButton = (Button)findViewById(R.id.unitybutton);
+                theButton.setVisibility(View.VISIBLE);
+                theButton.setBackgroundColor(Color.parseColor("@drawable/my_button_bg"));
+            }
+            else if(result[i]>=350){
+                Button theButton = (Button)findViewById(R.id.unitybutton);
+                theButton.setVisibility(View.INVISIBLE);
+            }
+        }
+
     }
     private String getUrl(LatLng origin, LatLng dest, String directionMode) {
         // Origin of route
