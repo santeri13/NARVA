@@ -44,8 +44,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.lang.reflect.Array;
-
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,TaskLoadedCallback{
@@ -234,6 +232,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMaxZoomPreference(17.0f);
         if(locastion.equals("Narva")){
             lion = new LatLng(59.372404, 28.200153);
             prom = new LatLng(59.377580, 28.203154);

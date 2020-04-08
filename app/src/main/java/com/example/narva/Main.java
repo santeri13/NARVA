@@ -1,16 +1,14 @@
 package com.example.narva;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,19 +20,25 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ARN.Narva.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 
-public class Main extends AppCompatActivity implements LocationListener {
+public class Main extends AppCompatActivity{
 
-    private TextView textView;
+    private TextView textView,name;
     private Button button1,button2;
     private static final String TAG = "Main";
     private static final int ERROR_DIALOG_REQUEST = 9001;
-    String prevStarted = "prevStarted";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class Main extends AppCompatActivity implements LocationListener {
         Window g = getWindow();
         g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
         textView = (TextView) findViewById(R.id.textView4);
+        name = (TextView)findViewById(R.id.name);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
@@ -61,6 +66,7 @@ public class Main extends AppCompatActivity implements LocationListener {
         if (isServiceOk()) {
             init();
         }
+        name.setText(readFromFile());
 
     }
 
@@ -68,59 +74,6 @@ public class Main extends AppCompatActivity implements LocationListener {
     public void openTours() {
         Intent intent = new Intent(this, Choose_Location.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 1000: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    Activity#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for Activity#requestPermissions for more details.
-                        return;
-                    }
-                    Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    try{
-                        String city = citylocation(location.getLatitude(),location.getLongitude());
-                        String country = countrylocation(location.getLatitude(),location.getLongitude());
-                        textView.setText(city + ","+country);
-                    }catch(Exception e){
-                        textView.setText("Not found");
-                    }
-                }
-                else{
-                    Toast.makeText(this,"Permission not granted", Toast.LENGTH_LONG).show();
-                }
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
     }
     //Search city
     private String citylocation(double latitude, double longtitude){
@@ -198,6 +151,12 @@ public class Main extends AppCompatActivity implements LocationListener {
                 openTours();
             }
         });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Unity();
+            }
+        });
     }
 
 
@@ -218,5 +177,38 @@ public class Main extends AppCompatActivity implements LocationListener {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void Unity() {
+        Intent intent = new Intent(this, UnityPlayerActivity.class);
+        startActivity(intent);
+    }
+    private String readFromFile() {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = openFileInput("Name");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append("\n").append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
     }
 }
