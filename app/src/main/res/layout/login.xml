@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6666ff"
+    android:background="#405fe5"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView6"
+        android:layout_marginTop="120dp"
         android:layout_width="199dp"
         android:layout_height="58dp"
         android:fontFamily="sans-serif-condensed"
@@ -16,6 +17,7 @@
         android:text="@string/woohoo"
         android:textColor="#ffffff"
         android:textSize="45sp"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -33,6 +35,7 @@
         android:text="@string/let_s_make_history"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:layout_gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/editText4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -42,13 +45,15 @@
         android:id="@+id/editText4"
         android:layout_width="307dp"
         android:layout_height="56dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/style"
+        android:background="@drawable/back"
+        android:textColor="@color/colorWhite"
         android:fontFamily="sans-serif-condensed"
         android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
-        android:textColorHint="#b3b3b3"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/editText5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -57,19 +62,20 @@
         android:id="@+id/editText5"
         android:layout_width="307dp"
         android:layout_height="56dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/style"
+        android:background="@drawable/back"
         android:fontFamily="sans-serif-condensed"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        android:textColorHint="#b3b3b3"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/button2"
+        android:layout_gravity="center"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="134dp"
         android:layout_height="56dp"
@@ -84,20 +90,36 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="162dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="200dp"
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_gravity="center"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="134dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:background="#6699ff"
         android:fontFamily="sans-serif-condensed"
-        android:gravity="center"
-        android:text="@string/forgot_your_password"
+        android:text="Register"
         android:textColor="#ffffff"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/Anonymous"
+        android:layout_gravity="center"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="134dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:background="#6699ff"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Anonymous"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+</LinearLayout>

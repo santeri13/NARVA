@@ -46,7 +46,7 @@
             tools:replace="android:value" />
 
         <activity
-            android:name=".Slider"
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -54,6 +54,9 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Slider"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Main"
             android:screenOrientation="portrait" />

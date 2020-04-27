@@ -9,18 +9,14 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.ARN.Narva.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -60,9 +56,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     private Polyline currentPolyline;
     double latitude, longtitude;
     double end_latitude,end_longtitude;
-    Button unityButton;
-    TextView textarea;
-    float more = 700;
 
 
     @Override
@@ -80,13 +73,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         initGoogleAPIClient();//Init Google API Client
         checkPermissions();//Check Permission
-        unityButton = findViewById(R.id.unitybutton);
-        unityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Unity();
-            }
-        });
 
     }
     public void Unity() {
@@ -382,14 +368,15 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         float result[] = new float[1];
         Location.distanceBetween(latitude,longtitude,end_latitude,end_longtitude,result);
         for(int i = 0, n = result.length; i <n ;i++){
-            if(result[i]<=300){
-                Button theButton = (Button)findViewById(R.id.unitybutton);
-                theButton.setVisibility(View.VISIBLE);
-                theButton.setBackgroundColor(Color.parseColor("@drawable/my_button_bg"));
-            }
-            else if(result[i]>=350){
-                Button theButton = (Button)findViewById(R.id.unitybutton);
-                theButton.setVisibility(View.INVISIBLE);
+            if(result[i]<=50){
+                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        Unity();
+
+                        return false;
+                    }
+                });
             }
         }
 

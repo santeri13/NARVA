@@ -1,6 +1,5 @@
 package com.example.narva;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
@@ -18,18 +17,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ARN.Narva.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,6 +35,9 @@ public class Main extends AppCompatActivity{
     private Button button1,button2;
     private static final String TAG = "Main";
     private static final int ERROR_DIALOG_REQUEST = 9001;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private ImageView imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,7 @@ public class Main extends AppCompatActivity{
         g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
         textView = (TextView) findViewById(R.id.textView4);
         name = (TextView)findViewById(R.id.name);
+        imageButton = findViewById(R.id.logoutimage);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
@@ -66,7 +66,15 @@ public class Main extends AppCompatActivity{
         if (isServiceOk()) {
             init();
         }
-        name.setText(readFromFile());
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intToMain = new Intent(Main.this, MainActivity.class);
+                startActivity(intToMain);
+            }
+        });
+
 
     }
 
@@ -181,34 +189,5 @@ public class Main extends AppCompatActivity{
     public void Unity() {
         Intent intent = new Intent(this, UnityPlayerActivity.class);
         startActivity(intent);
-    }
-    private String readFromFile() {
-
-        String ret = "";
-
-        try {
-            InputStream inputStream = openFileInput("Name");
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append("\n").append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
     }
 }
