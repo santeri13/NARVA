@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@id/tours"
+        android:title="Tours"
+        android:icon="@drawable/icntour"/>
+    <item
+        android:id="@id/profile"
+        android:title="Profile"
+        android:icon="@drawable/icnprofile"/>
+
+    <item
+        android:id="@id/favourites"
+        android:title="Favourites"
+        android:icon="@drawable/menufavouritesicnhdpi"/>
+    <item
+        android:id="@id/mypoints"
+        android:title="My points"
+        android:icon="@drawable/menupointsicnhdpi"/>
+    <item
+        android:id="@id/tourcode"
+        android:title="Tour code"
+        android:icon="@drawable/menucodeicnhdpi"/>
+    <item
+        android:id="@id/help"
+        android:title="Help"
+        android:icon="@drawable/menuhelpicnhdpi"/>
+
+</menu>

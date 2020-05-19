@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/tours">
+
+
+    <fragment
+        android:id="@+id/mypoints"
+        android:name="com.example.narva.My_points"
+        android:label="create_tour"
+        tools:layout="@layout/mypoints" />
+    <fragment
+        android:id="@+id/favourites"
+        android:name="com.example.narva.Favourite"
+        android:label="favourite"
+        tools:layout="@layout/favourite" />
+    <fragment
+        android:id="@+id/help"
+        android:name="com.example.narva.Help"
+        android:label="help"
+        tools:layout="@layout/help" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.narva.Profile"
+        android:label="profile"
+        tools:layout="@layout/profile" />
+    <fragment
+        android:id="@+id/leaderboard"
+        android:name="com.example.narva.Leaderboards"
+        android:label="leaderboards"
+        tools:layout="@layout/leaderboards" />
+    <fragment
+        android:id="@+id/tourcode"
+        android:name="com.example.narva.Tour_code"
+        android:label="points_rewards"
+        tools:layout="@layout/tourcode" />
+    <fragment
+        android:id="@+id/tours"
+        android:name="com.example.narva.Tours"
+        android:label="tours"
+        tools:layout="@layout/tours" >
+        <action
+            android:id="@+id/action_tours_to_search2"
+            app:destination="@id/search2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/search2"
+        android:name="com.example.narva.Search"
+        android:label="search"
+        tools:layout="@layout/search" />
+</navigation>
