@@ -60,12 +60,12 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this,"SignUp Unsuccessful, Please Try Again",Toast.LENGTH_SHORT).show();
                             }
                             else {
+                                addUser();
                                 startActivity(new Intent(Register.this,Slider.class));
                             }
                         }
 
                     });
-                    addUser();
                 }
                 else{
                     Toast.makeText(Register.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
@@ -80,6 +80,6 @@ public class Register extends AppCompatActivity {
         String Password = password.getText().toString();
         String id = databsereference.push().getKey();
         RegisterDatabase registerDatabase = new RegisterDatabase(id,Name,Email,Password);
-        databsereference.child(Name).setValue(registerDatabase);
+        databsereference.child(id).setValue(registerDatabase);
     }
 }

@@ -24,7 +24,6 @@ import com.ARN.Narva.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -35,8 +34,6 @@ public class Main extends AppCompatActivity{
     private Button button1,button2;
     private static final String TAG = "Main";
     private static final int ERROR_DIALOG_REQUEST = 9001;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private ImageView imageButton;
 
     @Override
@@ -74,16 +71,11 @@ public class Main extends AppCompatActivity{
                 startActivity(intToMain);
             }
         });
-
-
     }
-
-    //move to Choose_Location class
     public void openTours() {
-        Intent intent = new Intent(this, Choose_Location.class);
+        Intent intent = new Intent(this, nav.class);
         startActivity(intent);
     }
-    //Search city
     private String citylocation(double latitude, double longtitude){
         String cityName = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -103,7 +95,6 @@ public class Main extends AppCompatActivity{
         }
         return cityName;
     }
-    //Search country
     private String countrylocation(double latitude, double longtitude){
         String countryName = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -123,7 +114,6 @@ public class Main extends AppCompatActivity{
         }
         return countryName;
     }
-    //Control if all services is ok
     public boolean isServiceOk(){
         Log.d(TAG, "isServiceOK: checking google service version");
 
@@ -147,9 +137,6 @@ public class Main extends AppCompatActivity{
     public void onBackPressed() {
         super.onBackPressed();
     }
-
-
-    //On button click move to openTours method
     private void init(){
         button1 = findViewById(R.id.button3);
         button2=findViewById(R.id.button5);

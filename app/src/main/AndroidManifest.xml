@@ -54,9 +54,11 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".nav"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Slider"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Main"
             android:screenOrientation="portrait" />
@@ -64,10 +66,10 @@
             android:name=".Gps"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Choose_Location"
+            android:name=".Register"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register"
+            android:name=".nav"
             android:screenOrientation="portrait"/>
     </application>
 

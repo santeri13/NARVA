@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -35,10 +36,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.database.core.Tag;
+
+import io.opencensus.resource.Resource;
 
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -57,14 +62,12 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     double latitude, longtitude;
     double end_latitude,end_longtitude;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
         Window g = getWindow();
         g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
-        locastion = Choose_Location.getLocation();
         lionmarker = new MarkerOptions().position(new LatLng(59.373015, 28.200559)).title("Swedish lion statue in Narva");
         prommarker = new MarkerOptions().position(new LatLng(59.377580, 28.203154)).title("Narva Promenaad");
         platsmarker = new MarkerOptions().position(new LatLng(59.379110, 28.198908)).title("Raekoja plats");
@@ -73,7 +76,13 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         initGoogleAPIClient();//Init Google API Client
         checkPermissions();//Check Permission
-
+        //LinearLayout layout = (LinearLayout) findViewById(R.id.setpath);
+        //Button btnTag = new Button(this);
+        //btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        //btnTag.setGravity(Integer.parseInt("center"));
+        //btnTag.setText("Button");
+        //btnTag.setId(Integer.parseInt("some_random_id"));
+        //layout.addView(btnTag);
     }
     public void Unity() {
         Intent intent = new Intent(this, UnityPlayerActivity.class);
@@ -217,9 +226,13 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        try{
+            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this,R.raw.arn_map));
+
+        }catch(Resources.NotFoundException e){
+            Log.e("Gps","Cant find style");
+        }
         mMap.setMaxZoomPreference(17.0f);
-        if(locastion.equals("Narva")){
             lion = new LatLng(59.372404, 28.200153);
             prom = new LatLng(59.377580, 28.203154);
             end_latitude = prom.latitude;
@@ -303,7 +316,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
 
             );
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.373062, 28.200594), 15),5000,null);
-        }
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)

@@ -32,10 +32,8 @@
         android:hint="@string/name"
         android:gravity="left|center"
         android:paddingLeft="10dp"
-        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent" />
@@ -49,10 +47,8 @@
         android:hint="Password"
         android:gravity="left|center"
         android:paddingLeft="10dp"
-        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent" />
@@ -66,10 +62,8 @@
         android:layout_marginTop="10dp"
         android:gravity="left|center"
         android:paddingLeft="10dp"
-        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:layout_gravity="center"
-        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent" />
