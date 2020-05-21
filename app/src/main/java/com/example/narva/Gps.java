@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,9 +42,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.firebase.database.core.Tag;
-
-import io.opencensus.resource.Resource;
 
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -61,6 +59,9 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     private Polyline currentPolyline;
     double latitude, longtitude;
     double end_latitude,end_longtitude;
+    TextView textTitle;
+    Long latitude1, longtitude1;
+    String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,10 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         setContentView(R.layout.map);
         Window g = getWindow();
         g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
+        Intent i = getIntent();
+        title = i.getStringExtra("title");
+        textTitle = findViewById(R.id.tour_text);
+        textTitle.setText(title);
         lionmarker = new MarkerOptions().position(new LatLng(59.373015, 28.200559)).title("Swedish lion statue in Narva");
         prommarker = new MarkerOptions().position(new LatLng(59.377580, 28.203154)).title("Narva Promenaad");
         platsmarker = new MarkerOptions().position(new LatLng(59.379110, 28.198908)).title("Raekoja plats");
@@ -76,13 +81,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         initGoogleAPIClient();//Init Google API Client
         checkPermissions();//Check Permission
-        //LinearLayout layout = (LinearLayout) findViewById(R.id.setpath);
-        //Button btnTag = new Button(this);
-        //btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        //btnTag.setGravity(Integer.parseInt("center"));
-        //btnTag.setText("Button");
-        //btnTag.setId(Integer.parseInt("some_random_id"));
-        //layout.addView(btnTag);
     }
     public void Unity() {
         Intent intent = new Intent(this, UnityPlayerActivity.class);
@@ -362,11 +360,11 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
     //Each 2-3 seconds method activate to change information on map.
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
+        TextView textView = findViewById(R.id.meters);
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
@@ -381,11 +379,11 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         Location.distanceBetween(latitude,longtitude,end_latitude,end_longtitude,result);
         for(int i = 0, n = result.length; i <n ;i++){
             if(result[i]<=50){
+                textView.setText((int) result[i]);
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         Unity();
-
                         return false;
                     }
                 });
@@ -461,5 +459,4 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
             currentPolyline.remove();
         currentPolyline = mMap.addPolyline((PolylineOptions) values[0]);
     }
-
 }

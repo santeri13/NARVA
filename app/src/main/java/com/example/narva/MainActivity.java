@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText email,password;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mfirebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +40,8 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mFirebaseUser = firebaseAuth.getCurrentUser();
                 if( mFirebaseUser != null ){
-                    Toast.makeText(MainActivity.this,"You are logged in",Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(MainActivity.this, Main.class);
                     startActivity(i);
-                }
-                else{
-                    Toast.makeText(MainActivity.this,"Please Login",Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -95,7 +92,17 @@ public class MainActivity extends AppCompatActivity {
         Anonymous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSlider();
+                firebaseAuth.signInAnonymously().
+                        addOnCompleteListener(MainActivity.this,new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            openSlider();
+                        }
+                    }
+                });
             }
         });
 

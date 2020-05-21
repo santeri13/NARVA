@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -23,7 +24,6 @@ public class ToursAdapter2 extends RecyclerView.Adapter<ToursAdapter2.ToursViewH
 
     private Context mCtx;
     private List<TourReader> tourList;
-
 
     public ToursAdapter2(Context mCtx, List<TourReader> tourList){
         this.mCtx = mCtx;
@@ -60,11 +60,11 @@ public class ToursAdapter2 extends RecyclerView.Adapter<ToursAdapter2.ToursViewH
         holder.textViewName.setBackgroundColor(color);
         holder.timetext.setText(Long.toString(tour.time));
         holder.liketext.setText(Long.toString(tour.like));
-
         holder.foregroundLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mCtx, Gps.class);
+                intent.putExtra("title", holder.textViewName.getText().toString());
                 mCtx.startActivity(intent);
             }
         });
@@ -72,6 +72,7 @@ public class ToursAdapter2 extends RecyclerView.Adapter<ToursAdapter2.ToursViewH
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mCtx, Gps.class);
+                intent.putExtra("title", holder.textViewName.getText().toString());
                 mCtx.startActivity(intent);
             }
         });
@@ -84,8 +85,10 @@ public class ToursAdapter2 extends RecyclerView.Adapter<ToursAdapter2.ToursViewH
     class ToursViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, timetext, liketext;
         ImageView foregroundLinearLayout;
+        CardView cardView;
         public ToursViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.card_view);
             textViewName = itemView.findViewById(R.id.info_text);
             foregroundLinearLayout = itemView.findViewById(R.id.photo);
             timetext = itemView.findViewById(R.id.time);

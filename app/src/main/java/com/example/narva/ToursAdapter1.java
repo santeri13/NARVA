@@ -5,15 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -25,7 +25,6 @@ public class ToursAdapter1 extends RecyclerView.Adapter<ToursAdapter1.ToursViewH
 
     private Context mCtx;
     private List<TourReader> tourList;
-
 
     public ToursAdapter1(Context mCtx, List<TourReader> tourList){
         this.mCtx = mCtx;
@@ -63,18 +62,19 @@ public class ToursAdapter1 extends RecyclerView.Adapter<ToursAdapter1.ToursViewH
         holder.textViewName.setBackgroundColor(color);
         holder.timetext.setText(Long.toString(tour.time));
         holder.liketext.setText(Long.toString(tour.like));
-
-        holder.foregroundLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mCtx, Gps.class);
-                mCtx.startActivity(intent);
-            }
-        });
         holder.textViewName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mCtx, Gps.class);
+                intent.putExtra("title", holder.textViewName.getText().toString());
+                mCtx.startActivity(intent);
+            }
+        });
+        holder.foregroundLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mCtx, Gps.class);
+                intent.putExtra("title", holder.textViewName.getText().toString());
                 mCtx.startActivity(intent);
             }
         });
@@ -84,7 +84,6 @@ public class ToursAdapter1 extends RecyclerView.Adapter<ToursAdapter1.ToursViewH
     public int getItemCount() {
         return tourList.size();
     }
-
     class ToursViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, timetext, liketext;
         ImageView foregroundLinearLayout;

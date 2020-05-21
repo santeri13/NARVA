@@ -36,7 +36,9 @@
         android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:maxLines="1"
+        android:inputType="text"/>
     <EditText
         android:id="@+id/password"
         android:layout_width="240dp"
@@ -51,7 +53,9 @@
         android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:maxLines="1"
+        android:inputType="text"/>
     <EditText
         android:id="@+id/e_mail"
         android:layout_width="240dp"
@@ -63,6 +67,8 @@
         android:gravity="left|center"
         android:paddingLeft="10dp"
         android:textSize="20sp"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
         android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"

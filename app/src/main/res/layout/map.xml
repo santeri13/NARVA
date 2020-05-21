@@ -11,13 +11,13 @@
         android:layout_height="76dp">
 
         <TextView
+            android:id="@+id/tour_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="142dp"
             android:gravity="center"
-            android:text="The Secret of Bastion"
             android:textColor="@color/colorWhite"
             android:textSize="20dp"
             android:fontFamily="@font/robotomedium"/>
@@ -40,7 +40,19 @@
             android:layout_marginBottom="0dp"
             tools:context=".Map" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/meters"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:background="#405fe5" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/setpath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,9 +60,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
-
-        </LinearLayout>
-
+        </androidx.recyclerview.widget.RecyclerView>
 
     </RelativeLayout>
 

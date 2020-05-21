@@ -94,6 +94,15 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="13dp"
+                    android:background="@drawable/ic_favorite_border_black_24dp"/>
+
             </RelativeLayout>
 
             <TextView

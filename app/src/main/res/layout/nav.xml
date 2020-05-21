@@ -45,7 +45,9 @@
                 android:layout_height="39dp"
                 android:layout_gravity="center"
                 android:background="@drawable/back"
-                android:paddingLeft="40dp"/>
+                android:paddingLeft="40dp"
+                android:maxLines="1"
+                android:inputType="text"/>
             <ImageView
                 android:padding="3dp"
                 android:id="@+id/username_icon"
