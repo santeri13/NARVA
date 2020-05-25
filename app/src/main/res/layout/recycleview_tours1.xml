@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -27,13 +28,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerInside"
+                    android:scaleType="fitXY"
                     />
 
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:background="#405fe5"
+                    android:background="@drawable/ring_shape"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="7dp"
@@ -64,7 +65,7 @@
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:background="#405fe5"
+                    android:background="@drawable/ring_shape"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="75dp"

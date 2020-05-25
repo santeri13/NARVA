@@ -1,6 +1,7 @@
 package com.example.narva;
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.ARN.Narva.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -42,6 +46,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -60,8 +71,13 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     double latitude, longtitude;
     double end_latitude,end_longtitude;
     TextView textTitle;
-    Long latitude1, longtitude1;
+    ArrayList arrayList;
+    DatabaseReference mreference;
     String title;
+    RecyclerView recyclerView;
+    private List<PointReader> artistList;
+    private PointAdapter adapter;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +89,44 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         title = i.getStringExtra("title");
         textTitle = findViewById(R.id.tour_text);
         textTitle.setText(title);
+        mreference = FirebaseDatabase.getInstance().getReference().child("Tours").child(title).child("MainCoordinates");
+        mreference.keepSynced(true);
+        mreference.addValueEventListener(valueEventListener);
+        recyclerView = (RecyclerView)findViewById(R.id.setpath);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager ilm = new LinearLayoutManager(this);
+        ilm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(ilm);
+        artistList = new ArrayList<>();
+        adapter = new PointAdapter(this,artistList);
+        recyclerView.setAdapter(adapter);
         lionmarker = new MarkerOptions().position(new LatLng(59.373015, 28.200559)).title("Swedish lion statue in Narva");
         prommarker = new MarkerOptions().position(new LatLng(59.377580, 28.203154)).title("Narva Promenaad");
         platsmarker = new MarkerOptions().position(new LatLng(59.379110, 28.198908)).title("Raekoja plats");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        initGoogleAPIClient();//Init Google API Client
-        checkPermissions();//Check Permission
+        initGoogleAPIClient();
+        checkPermissions();
     }
+    ValueEventListener valueEventListener = (new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            artistList.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    PointReader artist = snapshot.getValue(PointReader.class);
+                    artistList.add(artist);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
     public void Unity() {
         Intent intent = new Intent(this, UnityPlayerActivity.class);
         startActivity(intent);
@@ -378,8 +423,8 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         float result[] = new float[1];
         Location.distanceBetween(latitude,longtitude,end_latitude,end_longtitude,result);
         for(int i = 0, n = result.length; i <n ;i++){
+            textView.setText((int) result[i]+"m");
             if(result[i]<=50){
-                textView.setText((int) result[i]);
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
@@ -459,4 +504,5 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
             currentPolyline.remove();
         currentPolyline = mMap.addPolyline((PolylineOptions) values[0]);
     }
+
 }

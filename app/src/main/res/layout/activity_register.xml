@@ -67,7 +67,6 @@
         android:gravity="left|center"
         android:paddingLeft="10dp"
         android:textSize="20sp"
-        android:maxLines="1"
         android:inputType="textEmailAddress"
         android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"

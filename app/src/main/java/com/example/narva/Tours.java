@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Tours#newInstance} factory method to
@@ -67,6 +66,7 @@ public class Tours extends Fragment {
         }
         reference = FirebaseDatabase.getInstance().getReference("Tours");
         reference.addValueEventListener(valueEventListener);
+        reference.keepSynced(true);
     }
     ValueEventListener valueEventListener = (new ValueEventListener() {
         @Override

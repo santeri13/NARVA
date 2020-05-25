@@ -44,6 +44,7 @@ public class ToursAdapter2 extends RecyclerView.Adapter<ToursAdapter2.ToursViewH
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 holder.foregroundLinearLayout.setBackground(new BitmapDrawable(bitmap));
+                holder.foregroundLinearLayout.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             }
 
             @Override
