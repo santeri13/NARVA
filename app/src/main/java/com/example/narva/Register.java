@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,6 +23,7 @@ public class Register extends AppCompatActivity {
     private EditText email,password,nickname;
     private FirebaseAuth firebaseAuth;
     DatabaseReference databsereference;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +80,8 @@ public class Register extends AppCompatActivity {
         String Email = email.getText().toString();
         String Name = nickname.getText().toString();
         String Password = password.getText().toString();
-        String id = databsereference.push().getKey();
-        RegisterDatabase registerDatabase = new RegisterDatabase(id,Name,Email,Password);
-        databsereference.child(id).setValue(registerDatabase);
+        int number = 0;
+        RegisterDatabase registerDatabase = new RegisterDatabase(Name,Email,Password,number);
+        databsereference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(registerDatabase);
     }
 }

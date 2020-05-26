@@ -46,6 +46,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,7 +72,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     private Polyline currentPolyline;
     double latitude, longtitude;
     double end_latitude,end_longtitude;
-    TextView textTitle;
+    TextView textTitle,points;
     ArrayList arrayList;
     DatabaseReference mreference;
     String title;
@@ -78,6 +80,8 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     private List<PointReader> artistList;
     private PointAdapter adapter;
     Context context;
+    String uid;
+    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         Window g = getWindow();
         g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
         Intent i = getIntent();
+        points = (TextView)findViewById(R.id.points);
         title = i.getStringExtra("title");
         textTitle = findViewById(R.id.tour_text);
         textTitle.setText(title);
@@ -108,7 +113,26 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         initGoogleAPIClient();
         checkPermissions();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+        database = FirebaseDatabase.getInstance().getReference();
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long user1 = dataSnapshot.child("user").child(uid).child("points").getValue(Long.class);
+                String user2 = user1.toString().trim();
+                points.setText(user2);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
+
     ValueEventListener valueEventListener = (new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

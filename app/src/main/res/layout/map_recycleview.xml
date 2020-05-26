@@ -48,7 +48,7 @@
                 android:id="@+id/info_text"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:background="#23b574"
+                android:background="#405fe5"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="5dp"
                 android:text="Narva Battle"

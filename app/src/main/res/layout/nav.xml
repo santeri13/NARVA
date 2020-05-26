@@ -23,6 +23,7 @@
             android:layout_marginTop="20dp">
 
             <ImageView
+                android:layout_marginTop="15dp"
                 android:id="@+id/imageMenu"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -34,14 +35,19 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_toStartOf="@+id/points"
-                android:src="@drawable/pointstaricnhdpi"/>
+                android:src="@drawable/pointstaricnhdpi"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"/>
 
             <TextView
                 android:id="@+id/points"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:gravity="bottom" />
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorWhite"
+                android:textSize="20dp"
+                android:layout_marginTop="15dp"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"

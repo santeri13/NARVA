@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import java.util.List;
@@ -59,25 +61,23 @@ public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ToursViewHol
     public void onBindViewHolder(@NonNull PointAdapter.ToursViewHolder holder, int position) {
         PointReader pointAdapter = tourList.get(position);
         holder.textViewName.setText(pointAdapter.name);
-        Picasso.get().load(pointAdapter.image).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                holder.foregroundLinearLayout.setBackground(new BitmapDrawable(bitmap));
-            }
+        Glide.with(contex).load(pointAdapter.image).centerCrop().into(holder.foregroundLinearLayout);
+        //Picasso.get().load(pointAdapter.image).into(new Target() {
+            //@Override
+            //public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                //holder.foregroundLinearLayout.setBackground(new BitmapDrawable(bitmap));
+            //}
 
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                Log.d("TAG", "FAILED");
-            }
+            //@Override
+            //public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                //Log.d("TAG", "FAILED");
+            //}
 
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                Log.d("TAG", "Prepare Load");
-            }
-        });
-        Random rnd = new Random();
-        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-        holder.textViewName.setBackgroundColor(color);
+            //@Override
+            //public void onPrepareLoad(Drawable placeHolderDrawable) {
+                //Log.d("TAG", "Prepare Load");
+            //}
+        //});
     }
     @Override
     public int getItemCount() {
