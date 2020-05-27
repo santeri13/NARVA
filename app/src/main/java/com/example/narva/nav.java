@@ -6,12 +6,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -33,7 +31,7 @@ public class nav extends AppCompatActivity implements NavigationView.OnNavigatio
     private static String field1;
     String uid;
     DatabaseReference database;
-    TextView point;
+    TextView point, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +46,11 @@ public class nav extends AppCompatActivity implements NavigationView.OnNavigatio
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+        username = (TextView)findViewById(R.id.username);
         point = (TextView)findViewById(R.id.points);
         NavigationView navigation = findViewById(R.id.navigationView);
         navigation.setNavigationItemSelectedListener(this);
+        navigation.setItemIconTintList(null);
         NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
         Navigation.setViewNavController(navigation,navController);
         EditText field1 = (EditText)findViewById(R.id.search);
@@ -60,7 +60,6 @@ public class nav extends AppCompatActivity implements NavigationView.OnNavigatio
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Search newFragment = new Search();
@@ -88,19 +87,25 @@ public class nav extends AppCompatActivity implements NavigationView.OnNavigatio
         uid = user.getUid();
         database = FirebaseDatabase.getInstance().getReference();
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Long user1 = dataSnapshot.child("user").child(uid).child("points").getValue(Long.class);
-                String user2 = user1.toString().trim();
-                point.setText(user2);
-            }
+        if (user.isAnonymous()) {
+            point.setText(0);
+        }else{
+            database.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Long user1 = dataSnapshot.child("user").child(uid).child("points").getValue(Long.class);
+                    String username1 = dataSnapshot.child("user").child(uid).child("points").getValue(String.class);
+                    String user2 = user1.toString().trim();
+                    username.setText(username1);
+                    point.setText(user2);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
     private void addtown(EditText editext){
         field1 = editext.getText().toString();

@@ -85,20 +85,26 @@ public class Main extends AppCompatActivity{
         uid = user.getUid();
         database = FirebaseDatabase.getInstance().getReference();
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String user1 = dataSnapshot.child("user").child(uid).child("username").getValue(String.class);
-                name.setText(user1);
-                Log.d("TAG", "This is text");
+        if (user != null) {
+            if (user.isAnonymous()) {
+                name.setText("Anonymous");
             }
+        }
+        else{
+            database.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String user1 = dataSnapshot.child("user").child(uid).child("username").getValue(String.class);
+                    name.setText(user1);
+                    Log.d("TAG", "This is text");
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        }
     }
     public void openTours() {
         Intent intent = new Intent(this, nav.class);

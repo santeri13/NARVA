@@ -118,19 +118,24 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         uid = user.getUid();
         database = FirebaseDatabase.getInstance().getReference();
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Long user1 = dataSnapshot.child("user").child(uid).child("points").getValue(Long.class);
-                String user2 = user1.toString().trim();
-                points.setText(user2);
-            }
+        if (user.isAnonymous()) {
+            points.setText(0);
+        }
+        else{
+            database.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Long user1 = dataSnapshot.child("user").child(uid).child("points").getValue(Long.class);
+                    String user2 = user1.toString().trim();
+                    points.setText(user2);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     ValueEventListener valueEventListener = (new ValueEventListener() {
