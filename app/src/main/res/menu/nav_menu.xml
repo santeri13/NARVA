@@ -6,10 +6,9 @@
         android:title="Tours"
         android:icon="@drawable/icntour"/>
     <item
-        android:id="@id/leaderboard"
+        android:id="@id/profile"
         android:title="Profile"
-        android:icon="@drawable/icnprofile" />
-
+        android:icon="@drawable/icnprofile"/>
     <item
         android:id="@id/favourites"
         android:title="Favourites"
@@ -26,5 +25,4 @@
         android:id="@id/help"
         android:title="Help"
         android:icon="@drawable/menuhelpicnhdpi"/>
-
 </menu>
