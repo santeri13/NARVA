@@ -68,7 +68,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     Marker mCurrLocationMarker;
     LatLng latLng,lion,prom,plats;
     MarkerOptions lionmarker,prommarker,platsmarker, markerOptions1;
-    private String locastion;
     private Polyline currentPolyline;
     double latitude, longtitude;
     double end_latitude,end_longtitude;
@@ -79,7 +78,6 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     RecyclerView recyclerView;
     private List<PointReader> artistList;
     private PointAdapter adapter;
-    Context context;
     String uid;
     DatabaseReference database;
 
@@ -119,7 +117,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         database = FirebaseDatabase.getInstance().getReference();
 
         if (user.isAnonymous()) {
-            points.setText(0);
+            points.setText("0");
         }
         else{
             database.addValueEventListener(new ValueEventListener() {

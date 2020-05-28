@@ -88,7 +88,7 @@ public class nav extends AppCompatActivity implements NavigationView.OnNavigatio
         database = FirebaseDatabase.getInstance().getReference();
 
         if (user.isAnonymous()) {
-            point.setText(0);
+            point.setText("0");
         }else{
             database.addValueEventListener(new ValueEventListener() {
                 @Override

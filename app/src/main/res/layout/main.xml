@@ -13,8 +13,12 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/profileimg"
-        android:layout_marginTop="120dp"/>
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profileimg" />
 
     <TextView
         android:id="@+id/name"
@@ -22,64 +26,63 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:background="@drawable/style"
+        android:fontFamily="@font/robotomedium"
+        android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="16sp"
-        android:gravity="center"
-        android:fontFamily="@font/robotomedium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:background="@drawable/style"
+        android:fontFamily="@font/robotomedium"
         android:gravity="center"
         android:textColor="#ffffff"
-        android:fontFamily="@font/robotomedium"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="257dp"
         android:layout_height="65dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:background="#e84c3d"
         android:drawableStart="@drawable/drawabletour"
         android:fontFamily="@font/robotomedium"
-        android:text="@string/tours"
         android:gravity="left|center_vertical"
+        android:text="@string/tours"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="257dp"
         android:layout_height="65dp"
-        android:layout_marginTop="12dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="17dp"
+        android:background="#f39c11"
         android:drawableStart="@drawable/drawablediscovery"
+        android:fontFamily="@font/robotomedium"
+        android:gravity="left|center_vertical"
         android:text="@string/discover"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:gravity="left|center_vertical"
-        android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        android:fontFamily="@font/robotomedium"
-        android:background="#f39c11"/>
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <Button
         android:id="@+id/button6"
@@ -90,53 +93,56 @@
         android:background="#23b574"
         android:drawableStart="@drawable/drawableconfigure"
         android:fontFamily="@font/robotomedium"
+        android:gravity="left|center_vertical"
         android:text="@string/find_a_guide"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:gravity="left|center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6">
+
+        <ImageView
+            android:id="@+id/logoutimage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            app:srcCompat="@drawable/icnmyroute" />
 
-            <ImageView
-                android:id="@+id/logoutimage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                app:srcCompat="@drawable/icnmyroute"
-                android:layout_marginTop="20dp"/>
-
-            <TextView
-                android:id="@+id/logouttext"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/style"
-                android:fontFamily="@font/robotomedium"
-                android:gravity="center"
-                android:text="Log out"
-                android:textColor="#ffffff"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/logouttext"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/style"
+            android:fontFamily="@font/robotomedium"
+            android:gravity="center"
+            android:text="Log out"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 
