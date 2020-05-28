@@ -22,25 +22,6 @@
             android:textColor="@color/colorWhite"
             android:textSize="20dp" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_toStartOf="@+id/points"
-            android:src="@drawable/pointstaricnhdpi"
-            android:layout_marginRight="10dp"/>
-
-        <TextView
-            android:layout_marginTop="20dp"
-            android:id="@+id/points"
-            android:layout_marginEnd="40dp"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/colorWhite"
-            android:textSize="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"/>
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -59,18 +40,6 @@
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
             tools:context=".Map" />
-
-        <TextView
-            android:id="@+id/meters"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:background="@drawable/ring_shape">
-
-        </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/setpath"

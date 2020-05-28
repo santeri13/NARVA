@@ -1,5 +1,4 @@
 package com.example.narva;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.app.Dialog;
@@ -25,13 +24,6 @@ import com.ARN.Narva.UnityPlayerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -43,8 +35,6 @@ public class Main extends AppCompatActivity{
     private static final String TAG = "Main";
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private ImageView imageButton;
-    String uid;
-    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,30 +71,6 @@ public class Main extends AppCompatActivity{
                 startActivity(intToMain);
             }
         });
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        uid = user.getUid();
-        database = FirebaseDatabase.getInstance().getReference();
-
-        if (user != null) {
-            if (user.isAnonymous()) {
-                name.setText("Anonymous");
-            }
-        }
-        else{
-            database.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String user1 = dataSnapshot.child("user").child(uid).child("username").getValue(String.class);
-                    name.setText(user1);
-                    Log.d("TAG", "This is text");
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
     public void openTours() {
         Intent intent = new Intent(this, nav.class);

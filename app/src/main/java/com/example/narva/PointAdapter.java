@@ -1,11 +1,6 @@
 package com.example.narva;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import java.util.List;
-import java.util.Random;
+
 
 public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ToursViewHolder>{
 
@@ -49,7 +41,7 @@ public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ToursViewHol
                 TextView name = dialog.findViewById(R.id.text_header);
                 TextView text = dialog.findViewById(R.id.hint_text);
                 name.setText(tourList.get(holder.getAdapterPosition()).getName());
-                text.setText(tourList.get(holder.getAdapterPosition()).getText());
+                //text.setText(tourList.get(holder.getAdapterPosition()).getText());
                 dialog.show();
             }
         });
@@ -61,23 +53,6 @@ public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ToursViewHol
     public void onBindViewHolder(@NonNull PointAdapter.ToursViewHolder holder, int position) {
         PointReader pointAdapter = tourList.get(position);
         holder.textViewName.setText(pointAdapter.name);
-        Glide.with(contex).load(pointAdapter.image).centerCrop().into(holder.foregroundLinearLayout);
-        //Picasso.get().load(pointAdapter.image).into(new Target() {
-            //@Override
-            //public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                //holder.foregroundLinearLayout.setBackground(new BitmapDrawable(bitmap));
-            //}
-
-            //@Override
-            //public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                //Log.d("TAG", "FAILED");
-            //}
-
-            //@Override
-            //public void onPrepareLoad(Drawable placeHolderDrawable) {
-                //Log.d("TAG", "Prepare Load");
-            //}
-        //});
     }
     @Override
     public int getItemCount() {

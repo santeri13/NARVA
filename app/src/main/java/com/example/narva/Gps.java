@@ -88,13 +88,11 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         Window g = getWindow();
         g.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
         Intent i = getIntent();
-        points = (TextView)findViewById(R.id.points);
         title = i.getStringExtra("title");
         textTitle = findViewById(R.id.tour_text);
         textTitle.setText(title);
         mreference = FirebaseDatabase.getInstance().getReference().child("Tours").child(title).child("MainCoordinates");
         mreference.keepSynced(true);
-        mreference.addValueEventListener(valueEventListener);
         recyclerView = (RecyclerView)findViewById(R.id.setpath);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager ilm = new LinearLayoutManager(this);
@@ -111,49 +109,8 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         mapFragment.getMapAsync(this);
         initGoogleAPIClient();
         checkPermissions();
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        uid = user.getUid();
-        database = FirebaseDatabase.getInstance().getReference();
-
-        if (user.isAnonymous()) {
-            points.setText("0");
-        }
-        else{
-            database.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Long user1 = dataSnapshot.child("user").child(uid).child("points").getValue(Long.class);
-                    String user2 = user1.toString().trim();
-                    points.setText(user2);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
 
-    ValueEventListener valueEventListener = (new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            artistList.clear();
-            if (dataSnapshot.exists()) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    PointReader artist = snapshot.getValue(PointReader.class);
-                    artistList.add(artist);
-                }
-                adapter.notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    });
     public void Unity() {
         Intent intent = new Intent(this, UnityPlayerActivity.class);
         startActivity(intent);
@@ -436,7 +393,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
-        TextView textView = findViewById(R.id.meters);
+        //TextView textView = findViewById(R.id.meters);
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
@@ -450,7 +407,7 @@ public class Gps extends AppCompatActivity implements OnMapReadyCallback, Google
         float result[] = new float[1];
         Location.distanceBetween(latitude,longtitude,end_latitude,end_longtitude,result);
         for(int i = 0, n = result.length; i <n ;i++){
-            textView.setText((int) result[i]+"m");
+            //textView.setText((int) result[i]+"m");
             if(result[i]<=50){
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override

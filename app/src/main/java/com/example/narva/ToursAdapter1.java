@@ -15,13 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-
 import java.util.List;
-import java.util.Random;
 
 public class ToursAdapter1 extends RecyclerView.Adapter<ToursAdapter1.ToursViewHolder> {
 
@@ -43,24 +39,24 @@ public class ToursAdapter1 extends RecyclerView.Adapter<ToursAdapter1.ToursViewH
     public void onBindViewHolder(@NonNull ToursViewHolder holder, int position) {
         TourReader tour = tourList.get(position);
         holder.textViewName.setText(tour.Name);
-        Glide.with(mCtx).load(tour.link).centerCrop().into(holder.foregroundLinearLayout);
-        //Picasso.get().load(tour.link).into(new Target() {
-            //@Override
-            //public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                //holder.foregroundLinearLayout.setBackground(new BitmapDrawable(bitmap));
-                //holder.foregroundLinearLayout.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            //}
+        //Glide.with(mCtx).load(tour.link).centerCrop().into(holder.foregroundLinearLayout);
+        Picasso.get().load(tour.link).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                holder.foregroundLinearLayout.setBackground(new BitmapDrawable(bitmap));
+                holder.foregroundLinearLayout.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            }
 
-            //@Override
-            //public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                //Log.d("TAG", "FAILED");
-            //}
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                Log.d("TAG", "FAILED");
+            }
 
-            //@Override
-            //public void onPrepareLoad(Drawable placeHolderDrawable) {
-                //Log.d("TAG", "Prepare Load");
-            //}
-        //});
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                Log.d("TAG", "Prepare Load");
+            }
+        });
         holder.textViewName.setBackgroundColor(Color.parseColor(tour.color));
         holder.timetext.setText(Long.toString(tour.time));
         holder.liketext.setText(Long.toString(tour.like));

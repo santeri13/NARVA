@@ -4,11 +4,11 @@
     <item
         android:id="@id/tours"
         android:title="Tours"
-        android:icon="@drawable/menutoursicnhdpi"/>
+        android:icon="@drawable/icntour"/>
     <item
         android:id="@id/leaderboard"
-        android:title="Leaderboards"
-        android:icon="@drawable/menuhelpicnhdpi" />
+        android:title="Profile"
+        android:icon="@drawable/icnprofile" />
 
     <item
         android:id="@id/favourites"
